@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "uvec",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,7 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && run-p tailwind",
+    "tailwind": "tailwindcss -i ./src/index.css -o ./public/index.css --watch",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.11",
+    "tailwindcss": "^3.1.3"
   }
 }
