@@ -27,6 +27,52 @@ const Form = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
+    let body = {
+      title: titleReport,
+      term: {
+        season: workTermSeason,
+        year: workTermYear,
+        workTermNumber: workTermNumber,
+      },
+      company: {
+        name: companyName,
+        position: position,
+        location: "companyLocation",
+      },
+      student: {
+        name: name,
+        number: vNumber,
+        discipline: engineeringDiscipline,
+        email: email,
+        address: address,
+        city: city,
+        province: province,
+        zip: postalCode,
+      },
+      dueDate: dueDate,
+      marker: {
+        name: markerName,
+        address: markerAddress,
+        city: markerCity,
+        province: markerProvince,
+        zip: markerPostalCode,
+      },
+    };
+
+    fetch("http://localhost:8080/gen", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        response.json();
+      })
+      .then((result) => {
+        console.log(result);
+      });
+
     console.table({
       titleReport,
       companyName,
