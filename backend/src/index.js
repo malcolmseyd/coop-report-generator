@@ -33,7 +33,15 @@ fastify.post("/gen", async (request, reply) => {
   return { url };
 });
 
-fastify.register(cors, { origin: true });
+import files from "@fastify/static"
+import { env } from "process"
+import path from 'path'
+fastify.register(files, {
+  root: env.PUBLICDIR,
+  prefix: '/public/', 
+})
+
+fastify.register(cors, { origin: true })
 
 /**
  * Run the server!
