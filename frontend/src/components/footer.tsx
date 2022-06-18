@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer className="py-4 px-6">
       <p className="text-center">
-        Build using{" "}
+        Built using{" "}
         <a
           href="https://openai.com"
           target="_blank"
