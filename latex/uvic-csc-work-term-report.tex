@@ -1,0 +1,213 @@
+%////////////////////////////////////////////////////////////%
+%/    PREAMBLE                                              /%
+%////////////////////////////////////////////////////////////%
+
+\documentclass[12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Packages                                              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Fonts and Symbols
+%% -----------------------------------------------------------
+\usepackage{
+        amsmath,                            % math operators
+        amssymb,                            % math symbols
+       }
+
+%% Graphics
+%% -----------------------------------------------------------
+\usepackage{
+    graphicx,               % allows insertion of images
+        subfigure,          % allows subfigures (a), (b), etc.
+       }
+
+%% Tables
+%% -----------------------------------------------------------
+\usepackage{
+        booktabs,     % better tables, discourages vertical rulings
+        multicol,     % allow multi columns
+        tabularx,     % allows for full width tables
+       }
+
+%% Layout Alteration
+%% -----------------------------------------------------------
+\usepackage{
+        framed,       % nice boxes; used in Supervisor's Approval
+        geometry,     % change the margins for specific pages
+        indentfirst,  % indent first paragraph after section
+       }
+
+\geometry{              % specify page size options for (geometry)
+        a4paper,        % paper size
+        margin=1in,     % specified independently with hmargin vmargin
+     }
+
+%% Misc
+%% -----------------------------------------------------------
+\usepackage{
+        pdfpages,     % import pdfs into this document; used in Letter
+        url,          % allows urls to be added to document
+        listings,     % allows code snippets
+                microtype,          % typesetting and white space management
+                % hyperref          % clickable links
+       }
+
+%% Bibliography
+%% -----------------------------------------------------------
+\usepackage[
+        backend=biber,    % processor for bibliography
+        style=ieee,       % IEEE
+       ]
+       {
+           biblatex       % bibliography management
+       }
+
+\addbibresource{uvic-csc-work-term-report.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Macros and Commands                                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Code Blocks Presets
+\lstset{
+        showstringspaces=false,   % allow spaces in strings
+        basicstyle=\small,        % small text for code
+          frame=single,           % frame around code block
+          breaklines=true,        % breaklines to avoid overflow
+       }
+
+% Provides A Place To Write On Documents
+\providecommand{\blankline}[1]{\rule{#1}{0.5pt}}
+
+% Set Up Page Numbering For Appendices; As (Appendix Letter) - (Page Number)
+\providecommand{\StartAppendices}{
+  \newpage
+    \newcounter{AppendixCounter}
+    \renewcommand{\thepage}{\Alph{AppendixCounter} \textendash\ \arabic{page}}
+}
+
+% Manually Construct The Section Title For Each Appendix
+% And Then Add An Entry To The ToC
+\providecommand{\Appendix}[1]{
+    \newpage
+    \stepcounter{AppendixCounter}
+    \setcounter{page}{1}
+    \section*{Appendix \Alph{AppendixCounter}\quad #1}
+    \addtocontents{toc}{\protect\contentsline{section}{Appendix \Alph{AppendixCounter}\quad #1}{}}
+}
+
+% Change The ToC Title
+\renewcommand{\contentsname}{Table of Contents}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Environments                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hides The Formatting For The Summary
+\newenvironment{Executive Summary}
+  { % beginning formatting
+    % manually add entry to the ToC since section*
+    % suppresses addition to ToC
+    \addcontentsline{toc}{section}{Executive Summary}
+    \topskip=0pt                      % remove top padding
+    \vspace*{\stretch{2}}             % pad 2/3 of the page length
+    \section*{Executive Summary}      % don't append a section number before "Executive Summary"
+  }
+  { % end formatting
+    \vspace*{\stretch{3}}
+  }
+
+% Hides The Formatting For The Glossary
+\newenvironment{Glossary}
+  { %beginning formatting
+    \addcontentsline{toc}{section}{Glossary}
+     \section*{Glossary}
+  }
+
+%////////////////////////////////////////////////////////////%
+%/    BODY                                                  /%
+%////////////////////////////////////////////////////////////%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Title Page                                            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{gobble}              % turn off page numbering
+\include{sections/titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Letter                                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\includepdf{letter/uvic-csc-letter-of-transmittal}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Reflection                                            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\include{sections/professional-reflection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Front Matter                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\addtocontents{toc}{~\hfill\textbf{Page}} % add 'Page' above the page numbers
+%\addtocontents{toc}{~\hfill\textbf{Page}\par} % add 'Page' above the page numbers
+
+\tableofcontents
+
+\newpage
+\pagenumbering{roman}             % i, ii, iii, etc... page numbering
+
+\addcontentsline{toc}{section}{\listfigurename} % manually add to ToC
+\addtocontents{lof}{~\hfill\textbf{Page}\par}
+\listoffigures
+
+\newpage
+\addcontentsline{toc}{section}{\listtablename}
+\addtocontents{lot}{~\hfill\textbf{Page}\par}
+\listoftables
+
+% Include Executive Summary, and Glossary
+\include{sections/executive-summary}
+\include{sections/glossary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Main Body                                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\pagenumbering{arabic}              % 1, 2, 3, etc... page numbering
+
+% Include Introduction, Discussion, Conclusion, and Recommendation
+\include{sections/introduction}
+\include{sections/discussion}
+\include{sections/conclusion}
+\include{sections/recommendation}
+
+% Include Acknowledgments
+\addcontentsline{toc}{section}{Acknowledgments} % manually add to ToC
+\include{sections/acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    References                                            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\renewcommand*{\UrlFont}{\rmfamily}       % preserve default font for URLs
+\printbibliography[heading=bibintoc,title={References}]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Back Matter                                           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\StartAppendices{}
+\include{sections/appendix}
+
+\end{document}
