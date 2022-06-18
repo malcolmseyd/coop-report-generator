@@ -24,6 +24,8 @@ const Form = () => {
   const [markerProvince, setMarkerProvince] = useState("");
   const [markerPostalCode, setMarkerPostalCode] = useState("");
 
+  const [pdfURL, setPdfURL] = useState("");
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
@@ -69,7 +71,16 @@ const Form = () => {
       .then((response) => {
         response.json();
       })
-      .then((result) => {
+      .then((result: any) => {
+        //setPdfURL(result.url);
+
+        if (result) {
+          let pdfDownload = document.createElement("a");
+          pdfDownload.href = result.url;
+          pdfDownload.download = "report.pdf";
+          pdfDownload.click();
+        }
+
         console.log(result);
       });
 
