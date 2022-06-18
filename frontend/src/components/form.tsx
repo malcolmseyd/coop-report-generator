@@ -1,15 +1,35 @@
-// import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Form = () => {
-  const handleClick = (event: any) => {
+  const [titleReport, setTitleReport] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyLocation, setCompanyLocation] = useState("");
+  const [name, setName] = useState("");
+  const [vNumber, setVNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [engineeringDiscipline, setEngineeringDiscipline] = useState("");
+  const [workTermNumber, setWorkTermNumber] = useState("");
+  const [projectTopic, setProjectTopic] = useState("");
+
+  const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("clicked");
+    console.table({
+      titleReport,
+      companyName,
+      companyLocation,
+      name,
+      vNumber,
+      email,
+      engineeringDiscipline,
+      workTermNumber,
+      projectTopic,
+    });
   };
 
   return (
     <>
-      <div className="mt-8 max-w-md px-6">
-        <form onSubmit={handleClick} className="grid grid-cols-1 gap-6">
+      <div className="w-full max-w-sm">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
           <label className="block" htmlFor="report-title">
             <span className="text-gray-700">Title of Report</span>
             <input
@@ -25,6 +45,8 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={titleReport}
+              onChange={(event) => setTitleReport(event.target.value)}
               required
             />
           </label>
@@ -43,6 +65,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={companyName}
+              onChange={(event) => setCompanyName(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="company-location">
@@ -60,6 +85,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={companyLocation}
+              onChange={(event) => setCompanyLocation(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="student-name">
@@ -77,6 +105,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="v-number">
@@ -94,6 +125,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={vNumber}
+              onChange={(event) => setVNumber(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="email-address">
@@ -111,6 +145,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="engineering-discipline">
@@ -128,6 +165,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={engineeringDiscipline}
+              onChange={(event) => setEngineeringDiscipline(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="work-term-number">
@@ -145,6 +185,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={workTermNumber}
+              onChange={(event) => setWorkTermNumber(event.target.value)}
+              required
             />
           </label>
           <label className="block" htmlFor="project-topic">
@@ -162,6 +205,9 @@ const Form = () => {
                     focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                   "
               placeholder=""
+              value={projectTopic}
+              onChange={(event) => setProjectTopic(event.target.value)}
+              required
             />
           </label>
           <button
