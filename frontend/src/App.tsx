@@ -1,15 +1,13 @@
 import React from "react";
 import Footer from "./components/footer";
+import Header from "./components/header";
+import Main from "./components/main";
 
 function App() {
   return (
     <>
-      <header className="flex">
-        <div>
-          <h1>Amazing Application Title</h1>
-        </div>
-        <div></div>
-      </header>
+      <Header />
+      <Main />
       <Footer />
     </>
   );
