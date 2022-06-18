@@ -1,4 +1,4 @@
-import fs from "fs/promises"
+import fs from "fs"
 import proc from "child_process"
 import { env } from "process"
 
@@ -32,10 +32,10 @@ function buildPDF(latexPath, path) {
 }
 
 function replaceTemplate(params, path) {
-	const bytes = await fs.readFile(path)
+	const bytes = fs.readFileSync(path)
 	const contents = bytes.toString()
 	const newContents = Handlebars.compile(contents)(params)
-	await fs.writeFile(newContents)
+	fs.writeFileSync(newContents)
 }
 
 export { genPDF }
