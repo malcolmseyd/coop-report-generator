@@ -26,6 +26,7 @@ const Form = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+
     console.table({
       titleReport,
       companyName,
