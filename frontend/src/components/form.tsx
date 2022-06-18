@@ -18,6 +18,11 @@ const Form = () => {
   const [workTermNumber, setWorkTermNumber] = useState("");
   const [projectTopic, setProjectTopic] = useState("");
   const [dueDate, setDueDate] = useState("");
+  const [markerName, setMarkerName] = useState("");
+  const [markerAddress, setMarkerAddress] = useState("");
+  const [markerCity, setMarkerCity] = useState("");
+  const [markerProvince, setMarkerProvince] = useState("");
+  const [markerPostalCode, setMarkerPostalCode] = useState("");
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -39,6 +44,11 @@ const Form = () => {
       workTermNumber,
       projectTopic,
       dueDate,
+      markerName,
+      markerAddress,
+      markerCity,
+      markerProvince,
+      markerPostalCode,
     });
   };
 
@@ -382,6 +392,106 @@ const Form = () => {
             placeholder=""
             value={dueDate}
             onChange={(event) => setDueDate(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="marker-name">
+          <span className="text-gray-700">Marker Name</span>
+          <input
+            name="marker-name"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={markerName}
+            onChange={(event) => setMarkerName(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="marker-address">
+          <span className="text-gray-700">Marker Address</span>
+          <input
+            name="marker-address"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={markerAddress}
+            onChange={(event) => setMarkerAddress(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="marker-city">
+          <span className="text-gray-700">Marker City</span>
+          <input
+            name="marker-city"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={markerCity}
+            onChange={(event) => setMarkerCity(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="marker-province">
+          <span className="text-gray-700">Marker Province</span>
+          <input
+            name="marker-province"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={markerProvince}
+            onChange={(event) => setMarkerProvince(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="marker-postal-code">
+          <span className="text-gray-700">Marker Postal Code</span>
+          <input
+            name="marker-postal-code"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={markerPostalCode}
+            onChange={(event) => setMarkerPostalCode(event.target.value)}
             required
           />
         </label>
