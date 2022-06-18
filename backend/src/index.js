@@ -6,6 +6,9 @@ const fastify = Fastify({
 })
 import fs from "fs/promises"
 
+import { genPDF } from "./pdfgen.js"
+import defaultParams from "./schema.js"
+
 fastify.get('/', async (request, reply) => {
 	return { hello: 'world' }
 })
@@ -28,6 +31,12 @@ fastify.post("/template", async (request, reply) => {
 fastify.get("/hosts", async (request, reply) => {
 	const a = await fs.readFile("/etc/hosts")
 	return a.toString()
+})
+
+fastify.post("/gen", async (request, reply) => {
+	const templateParams = defaultParams
+	const url = genPDF(templateParams)
+	return { url }
 })
 
 /**
