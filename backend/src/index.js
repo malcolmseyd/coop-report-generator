@@ -5,6 +5,7 @@ const fastify = Fastify({
 	logger: true
 })
 import fs from "fs/promises"
+import cors from "@fastify/cors"
 
 import { genPDF } from "./pdfgen.js"
 import defaultParams from "./schema.js"
@@ -38,6 +39,8 @@ fastify.post("/gen", async (request, reply) => {
 	const url = genPDF(templateParams)
 	return { url }
 })
+
+fastify.register(cors, { origin: true })
 
 /**
  * Run the server!
