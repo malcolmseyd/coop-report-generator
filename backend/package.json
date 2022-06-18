@@ -5,11 +5,14 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.0.3"
+    "axios": "^0.27.2",
+    "fastify": "^4.0.3",
+    "handlebars": "^4.7.7"
   }
 }
