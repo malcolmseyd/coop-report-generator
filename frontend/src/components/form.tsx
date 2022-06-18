@@ -25,12 +25,20 @@ const Form = () => {
       titleReport,
       companyName,
       companyLocation,
+      position,
       name,
       vNumber,
-      email,
       engineeringDiscipline,
+      email,
+      address,
+      city,
+      province,
+      postalCode,
+      workTermSeason,
+      workTermYear,
       workTermNumber,
       projectTopic,
+      dueDate,
     });
   };
 
