@@ -59,7 +59,7 @@ const Form = () => {
       },
     };
 
-    fetch("http://localhost:8080/kanye", {
+    fetch("http://localhost:8080/gen", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
