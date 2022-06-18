@@ -8,18 +8,19 @@
 
 \usepackage[margin=1in]{geometry}
 
-\signature{
-  % Signature
-  FIRSTNAME LASTNAME \\
-  University of Victoria \\
-  ECS Student \\
-  Year YEAR - ECS XXX
-}
+% \signature{
+%   % Signature
+%   FIRSTNAME LASTNAME \\
+%   University of Victoria \\
+%   ECS Student \\
+%   Year YEAR - ECS XXX
+% }
 
-\address{
-  % Address
-  Victoria, B.C., Canada    % our personal address
-}
+% \address{
+%   % Address
+%   Victoria, B.C., Canada    % our personal address
+% }
+
 
 %////////////////////////////////////////////////////////////%
 %/    BODY                                                  /%
@@ -27,32 +28,53 @@
 
 \begin{document}
 
-\begin{letter}{
-    % Addressee
-    FIRSTNAME LASTNAME \\
-    Co-op Coordinator \\
-    Co-operative Education \& Career Services \\
-    University of Victoria \\
-    Victoria, B.C., Canada, OFFICE NUMBER
-  }
+% student info
+{{student.name}} \\
+{{student.address}} \\
+{{student.city}}, {{student.province}} \\
+{{student.zip}} \\
+\newline
+{{dueDate}} \\
+\newline
+{{marker.name}} \\
+{{marker.address}} \\
+{{marker.city}}, {{marker.province}} \\
+{{marker.zip.zip}} \\
+\newline
+Dear {{marker.title}}, \\
+\newline
+{{transmittal}} \\
+\newline
+Sincerely, \\
+\newline
+{{student.name}}
 
-  \date{MONTH DAY, YEAR}      % due date for work term report
+% \begin{letter}{
+%     % Addressee
+%     FIRSTNAME LASTNAME \\
+%     Co-op Coordinator \\
+%     Co-operative Education \& Career Services \\
+%     University of Victoria \\
+%     Victoria, B.C., Canada, OFFICE NUMBER
+%   }
 
-  \opening{Dear FIRSTNAME LASTNAME,}
-  \medskip
+%   \date{MONTH DAY, YEAR}      % due date for work term report
 
-  Formal submission pleasantries and information about yourself. \newline
+%   \opening{Dear FIRSTNAME LASTNAME,}
+%   \medskip
 
-  A little bit about the information regarding the work term. Add information about your contributions to the company during your work term. \newline
+%   Formal submission pleasantries and information about yourself. \newline
 
-  Talk a bit about what you worked on during your work term and how it relates to the work term report. \newline
+%   A little bit about the information regarding the work term. Add information about your contributions to the company during your work term. \newline
 
-  Special acknowledgment to the Co-op department and your supervisor. \newline
+%   Talk a bit about what you worked on during your work term and how it relates to the work term report. \newline
 
-  Restate your excitement on submitting your work term report.
+%   Special acknowledgment to the Co-op department and your supervisor. \newline
 
-  \closing{Yours faithfully,}
+%   Restate your excitement on submitting your work term report.
 
-\end{letter}
+%   \closing{Yours faithfully,}
+
+% \end{letter}
 
 \end{document}
