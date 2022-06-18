@@ -1,6 +1,8 @@
 import fs from "fs"
 import proc from "child_process"
 import { env } from "process"
+import Handlebars from "handlebars"
+import { format } from "path"
 
 function genPDF(templateParams) {
 	const latexDir = env.LATEXDIR // end with slash
@@ -8,13 +10,13 @@ function genPDF(templateParams) {
 
 	const id = Math.random().toString(36).slice(2)
 
-	const targetFolder = publicDir + id
+	const targetFolder = publicDir + "/" + id
 
 	// copy template into public folder
 	proc.execSync(`cp -r ${latexDir} ${targetFolder}`)
 
 	// replace files with their templated equivalent
-	const r = (p) => replaceTemplate(targetFolder + p)
+	const r = (p) => replaceTemplate(templateParams, targetFolder + "/" + p)
 	r("sections/titlepage.tex")
 	r("letter/uvic-engr-letter-of-transmittal.tex")
 	r("sections/executive-summary.tex")
@@ -24,18 +26,28 @@ function genPDF(templateParams) {
 	r("sections/recommendation.tex")
 	r("uvic-engr-work-term-report.tex")
 
-	return publicDir + "uvic-engr-work-term-report.pdf"
+	build(targetFolder)
+
+	return "/public/" + id + "/uvic-engr-work-term-report.pdf"
 }
 
-function buildPDF(latexPath, path) {
-	// proc.execSync(`${latexDir}/build.sh `)
+function build(path) {
+	proc.execSync(`pdflatex -output-directory ${path}/letter ${path}/letter/uvic-engr-letter-of-transmittal.tex`)
+	proc.execSync(`pdflatex -output-directory ${path} ${path}/uvic-engr-work-term-report.tex`)
 }
 
 function replaceTemplate(params, path) {
 	const bytes = fs.readFileSync(path)
 	const contents = bytes.toString()
-	const newContents = Handlebars.compile(contents)(params)
-	fs.writeFileSync(newContents)
+	try {
+		Handlebars.compile(contents)(params).toString()
+		fs.writeFileSync(path, newContents)
+	} catch (e) {
+		console.log("error: ", e)
+	}
+	const newContents = Handlebars.compile(contents)(params).toString()
+	fs.writeFileSync(path, newContents)
+
 }
 
 export { genPDF }
