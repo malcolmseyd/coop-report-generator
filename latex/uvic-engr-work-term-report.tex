@@ -153,23 +153,23 @@
 \addtocontents{toc}{~\hfill\textbf{Page}} % add 'Page' above the page numbers
 %\addtocontents{toc}{~\hfill\textbf{Page}\par} % add 'Page' above the page numbers
 
-\tableofcontents
+% \tableofcontents % TODO TOC
 
 \newpage
 \pagenumbering{roman}             % i, ii, iii, etc... page numbering
 
-\addcontentsline{toc}{section}{\listfigurename} % manually add to ToC
-\addtocontents{lof}{~\hfill\textbf{Page}\par}
-\listoffigures
+% \addcontentsline{toc}{section}{\listfigurename} % manually add to ToC
+% \addtocontents{lof}{~\hfill\textbf{Page}\par}
+% \listoffigures
 
-\newpage
-\addcontentsline{toc}{section}{\listtablename}
-\addtocontents{lot}{~\hfill\textbf{Page}\par}
-\listoftables
+% \newpage
+% \addcontentsline{toc}{section}{\listtablename}
+% \addtocontents{lot}{~\hfill\textbf{Page}\par}
+% \listoftables
 
 % Include Executive Summary, and Glossary
 \include{sections/executive-summary}
-\include{sections/glossary}
+% \include{sections/glossary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%    Main Body                                             %%
@@ -184,23 +184,25 @@
 \include{sections/conclusion}
 \include{sections/recommendation}
 
-% Include Acknowledgments
-\addcontentsline{toc}{section}{Acknowledgments} % manually add to ToC
-\include{sections/acknowledgments}
+% % TODO Include Acknowledgments
+% \addcontentsline{toc}{section}{Acknowledgments} % manually add to ToC
+% \include{sections/acknowledgments}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%    References                                            %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
-\renewcommand*{\UrlFont}{\rmfamily}       % preserve default font for URLs
-\printbibliography[heading=bibintoc,title={References}]
+% TODO
+
+% \newpage
+% \renewcommand*{\UrlFont}{\rmfamily}       % preserve default font for URLs
+% \printbibliography[heading=bibintoc,title={References}]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%    Back Matter                                           %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\StartAppendices{}
-\include{sections/appendix}
+% \StartAppendices{}
+% \include{sections/appendix}
 
 \end{document}
