@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
-  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +12,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "fastify": "^4.0.3",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "openai": "^3.0.0"
   }
 }
