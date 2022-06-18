@@ -4,7 +4,11 @@ import axios from "axios";
 const fastify = Fastify({
   logger: true,
 });
-import fs from "fs/promises";
+import fs from "fs/promises"
+import cors from "@fastify/cors"
+
+import { genPDF } from "./pdfgen.js"
+import defaultParams from "./schema.js"
 
 fastify.get("/", async (request, reply) => {
   return { hello: "world" };
@@ -28,6 +32,14 @@ fastify.get("/hosts", async (request, reply) => {
   const a = await fs.readFile("/etc/hosts");
   return a.toString();
 });
+
+fastify.post("/gen", async (request, reply) => {
+	const templateParams = defaultParams
+	const url = genPDF(templateParams)
+	return { url }
+})
+
+fastify.register(cors, { origin: true })
 
 /**
  * Run the server!

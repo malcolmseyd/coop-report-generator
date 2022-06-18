@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/cors": "^8.0.0",
     "axios": "^0.27.2",
     "fastify": "^4.0.3",
     "handlebars": "^4.7.7",
