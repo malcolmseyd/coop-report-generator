@@ -24,7 +24,7 @@ const Form = () => {
   const [markerProvince, setMarkerProvince] = useState("");
   const [markerPostalCode, setMarkerPostalCode] = useState("");
 
-  const [pdfURL, setPdfURL] = useState("");
+  // const [pdfURL, setPdfURL] = useState("");
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
