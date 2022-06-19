@@ -72,6 +72,7 @@ const Form = () => {
         response.json();
       })
       .then((result: any) => {
+        console.log(result);
         //setPdfURL(result.url);
 
         if (result) {
@@ -80,34 +81,7 @@ const Form = () => {
           pdfDownload.download = "report.pdf";
           pdfDownload.click();
         }
-
-        console.log(result);
       });
-
-    console.table({
-      titleReport,
-      companyName,
-      companyLocation,
-      position,
-      name,
-      vNumber,
-      engineeringDiscipline,
-      email,
-      address,
-      city,
-      province,
-      postalCode,
-      workTermSeason,
-      workTermYear,
-      workTermNumber,
-      projectTopic,
-      dueDate,
-      markerName,
-      markerAddress,
-      markerCity,
-      markerProvince,
-      markerPostalCode,
-    });
   };
 
   return (

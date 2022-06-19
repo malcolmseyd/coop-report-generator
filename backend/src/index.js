@@ -30,18 +30,19 @@ fastify.get("/hosts", async (request, reply) => {
 fastify.post("/gen", async (request, reply) => {
   const templateParams = defaultParams;
   const url = genPDF(templateParams);
+  console.log(request);
   return { url };
 });
 
-import files from "@fastify/static"
-import { env } from "process"
-import path from 'path'
+import files from "@fastify/static";
+import { env } from "process";
+import path from "path";
 fastify.register(files, {
   root: env.PUBLICDIR,
-  prefix: '/public/', 
-})
+  prefix: "/public/",
+});
 
-fastify.register(cors, { origin: true })
+fastify.register(cors, { origin: true });
 
 /**
  * Run the server!
