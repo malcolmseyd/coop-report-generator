@@ -12,11 +12,13 @@ RUN apt-get update \
   && apt-get clean \
   && apt-get autoclean
 
-COPY ./latex /latex
+COPY ./latex/*.sh /latex/
 
 RUN /latex/update-tlmgr-latest.sh
 
 RUN /latex/install.sh
+
+COPY ./latex /latex
 
 COPY backend/ .
 
