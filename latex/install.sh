@@ -1,7 +1,9 @@
 #!/bin/bash
-
 tlmgr init-usertree
-tlmgr install \
+
+tlmgr --verify-repo=none update --self
+
+tlmgr --verify-repo=none install \
 	graphics \
 	subfigure \
 	framed \

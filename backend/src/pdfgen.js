@@ -41,7 +41,7 @@ function replaceTemplate(params, path) {
 	const contents = bytes.toString()
 	try {
 		Handlebars.compile(contents)(params).toString()
-		fs.writeFileSync(path, newContents)
+		fs.writeFileSync(path, contents)
 	} catch (e) {
 		console.log("error: ", e)
 	}
