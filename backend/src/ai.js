@@ -1,87 +1,116 @@
-const { Configuration, OpenAIApi } = require("openai");
+import { Configuration, OpenAIApi } from "openai";
+
+function mustEnv(name) {
+    const v = process.env[name]
+    if (v == undefined) {
+        throw new Error(`${name} is a required envvar`)
+    }
+    return v
+}
+
+const OPENAI_API_KEY = mustEnv("OPENAI_API_KEY")
+
+// TODO rename all functions to camelCase (JS style)
 
 async function complete_text(prompt, max_tokens) {
     const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+        apiKey: OPENAI_API_KEY,
     });
     const openai = new OpenAIApi(configuration);
+
+    // console.log("=== PROMPT ===")
+    // console.log(prompt)
+    // console.log("==============")
 
     return openai.createCompletion({
         model: "text-davinci-002",
         prompt: prompt,
         max_tokens: max_tokens,
     });
-
 }
 
 async function generate_contents({
-    report_title,
-    student_name,
-    coordinator,
-    work_term,
+    title,
+    student,
+    marker,
+    term,
     year,
     discipline,
-    employer,
+    company,
     project,
     problem,
     solutions
 }) {
-    var background_promise = create_background({employer, problem})
+    var background_promise = create_background({ company, problem })
     var letter_promise = create_letter({
-        report_title,
-        student_name,
-        coordinator,
-        work_term,
+        title,
+        student,
+        marker,
+        term,
         year,
         discipline,
-        employer,
-        project
+        company,
+        project,
     })
 
-    var discussion_promises = []
-    for (solution in solutions) {
-        discussion_promises.push(
-            create_discussion_item(problem, solution)
-        )
-    }
+    const discussion_promises = solutions.map((solution) => ({
+        theme: solution,
+        content: create_discussion_item({problem, solution}),
+    }))
+
+    const discussion = await Promise.all(discussion_promises.map(async ({theme, content}) => ({
+        theme,
+        content: await get_response(content)
+    })))
 
     const background = await get_response(background_promise)
     const letter = await get_response(letter_promise)
-    var discussion_items = []
-    for (promise in discussion_promises) {
-        discussion_items.push(
-            get_response(promise)
-        )
+    // TODO generalize to N solutions
+    const summary = await get_response(create_summary({
+        problem,
+        solution1: solutions[0],
+        solution2: solutions[1],
+        solution3: solutions[2],
+    }))
+
+    // TODO intro
+    // TODO discussion intro
+    // TODO conclusion
+    // TODO recommendation
+    return {
+        letter,
+        summary,
+        introduction: "TODO GPT-3",
+        background,
+        discussion,
+        discussionIntro: "TODO GPT-3",
+        conclusion: "TODO GPT-3",
+        recommendation: "TODO GPT-3",
     }
-
-
-
 }
 
 async function get_response(completion) {
     const result = await completion
 
-    response = ""
+    let response = ""
 
     for (var choice of result.data.choices) {
-            response += choice.text.trim() + ' '
+        response += choice.text.trim() + ' '
     }
 
     return response
 }
 
 async function create_letter({
-    report_title,
-    student_name,
-    coordinator,
-    work_term,
-    year,
-    discipline,
-    employer,
+    title,
+    student,
+    marker,
+    term,
+    company,
     project
 }) {
-    var prompt = `Write a letter of transmittal from a year ${year} ${discipline} student at the University of Victoria named ${student_name} to ${coordinator} \
-about a work term report titled ${report_title} for work term ${work_term}. The student worked on the project ${project} at the company ${employer}. \
+    var prompt = `Write a letter of transmittal from ${student.discipline} student at the University of Victoria named ${student.name} to ${marker.name} \
+about a work term report titled ${title} for work term ${term.workTermNumber}. The student worked on the project ${project} at the company ${company.name}. \
 Include details about the student and the project.`
 
     return complete_text(prompt, 500)
@@ -99,37 +128,24 @@ ${solution1}, ${solution2}, ${solution3}. Explain the criteria used to compare t
     return complete_text(prompt, 500)
 }
 
-async function create_background({employer, problem}) {
+async function create_background({ company, problem }) {
     var prompt = `Describe the problem of ${problem}, providing details and examples. \
-Explain how the problem ${problem} impacts the company ${employer}.`
-    
+Explain how the problem ${problem} impacts the company ${company.name}.`
+
     return complete_text(prompt, 500)
 }
 
-async function create_discussion_item({problem, solution}) {
+async function create_discussion_item({ problem, solution }) {
     var prompt = `Describe in detail how ${solution} can be used to solve the problem of ${problem}. \
 Describe the costs and benefits of the solution, and give examples.`
 
     return complete_text(prompt, 1000)
 }
 
-const test1 = async () => {
-    try {
-        generate_contents({
-            report_title: "Solving Technical debt efficiently",
-            student_name: "Kyle Stang",
-            coordinator: "Mr. Smith",
-            work_term: "2",
-            year: "4",
-            discipline: "Software Engineering",
-            employer: "Tesla",
-            project: "technical debt solutions",
-            problem: "technical debt",
-            solutions: [
-                "refactoring", "code smell review", "rewriting code"
-            ]
-        })
-    } catch(err) {
 
-    }
+// import { frontend } from "./schema.js";
+// console.log(await generate_contents(frontend))
+
+export {
+    generate_contents
 }
