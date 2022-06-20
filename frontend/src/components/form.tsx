@@ -1,6 +1,7 @@
 import { useState } from "react";
+const axios = require("axios");
 
-const Form = () => {
+const Form = (Props: any) => {
   const [titleReport, setTitleReport] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [companyLocation, setCompanyLocation] = useState("");
@@ -24,7 +25,7 @@ const Form = () => {
   const [markerProvince, setMarkerProvince] = useState("");
   const [markerPostalCode, setMarkerPostalCode] = useState("");
 
-  // const [pdfURL, setPdfURL] = useState("");
+  const [pdfURL, setPdfURL] = useState("");
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -61,26 +62,18 @@ const Form = () => {
       },
     };
 
-    fetch("http://localhost:8080/gen", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((response) => {
-        response.json();
-      })
-      .then((result: any) => {
-        console.log(result);
-        //setPdfURL(result.url);
+    axios
+      .post("http://localhost:8080/gen", body)
+      .then(function (response: any) {
+        console.log(response);
+        console.log(response.data);
+        console.log(response.data.url);
 
-        if (result) {
-          let pdfDownload = document.createElement("a");
-          pdfDownload.href = result.url;
-          pdfDownload.download = "report.pdf";
-          pdfDownload.click();
-        }
+        setPdfURL(response.data.url);
+        Props.updatePDF(response.data.url);
+      })
+      .catch(function (error: any) {
+        console.log(error);
       });
   };
 

@@ -30,7 +30,6 @@ fastify.get("/hosts", async (request, reply) => {
 fastify.post("/gen", async (request, reply) => {
   const templateParams = defaultParams;
   const url = genPDF(templateParams);
-  console.log(request);
   return { url };
 });
 
