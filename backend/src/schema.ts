@@ -1,4 +1,75 @@
-const template =
+export interface TemplateInput {
+    title:   string;
+    term:    Term;
+    company: Company;
+    student: Student;
+    dueDate: string;
+    marker:  Marker;
+    ai:      AI;
+}
+
+export interface APIInput {
+    title:     string;
+    term:      Term;
+    company:   Company;
+    student:   Student;
+    dueDate:   string;
+    marker:    Marker;
+    project:   string;
+    problem:   string;
+    solutions: string[];
+}
+
+export interface AI {
+    letter:          string;
+    summary:         string;
+    introduction:    string;
+    background:      string;
+    discussion:      Discussion[];
+    discussionIntro: string;
+    conclusion:      string;
+    recommendation:  string;
+}
+
+export interface Discussion {
+    theme:   string;
+    content: string;
+}
+
+export interface Company {
+    name:     string;
+    position: string;
+    location: string;
+}
+
+export interface Marker {
+    name:     string;
+    address:  string;
+    city:     string;
+    province: string;
+    zip:      string;
+}
+
+export interface Student {
+    name:       string;
+    number:     string;
+    discipline: string;
+    email:      string;
+    address:    string;
+    city:       string;
+    province:   string;
+    zip:        string;
+}
+
+export interface Term {
+    season:         string;
+    year:           string;
+    workTermNumber: string;
+}
+
+
+
+const template: TemplateInput =
 {
 	title: "Is Stadia Worth Building?",
 	term: {
@@ -45,7 +116,7 @@ const template =
 	}
 }
 
-const frontend =
+const frontend: APIInput =
 {
 	title: "Is Stadia Worth Building?",
 	term: {
