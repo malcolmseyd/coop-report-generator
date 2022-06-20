@@ -2,8 +2,9 @@ import fs from "fs"
 import proc from "child_process"
 import { env } from "process"
 import Handlebars from "handlebars"
+import { TemplateInput } from "./schema"
 
-function genPDF(templateParams) {
+function genPDF(templateParams: TemplateInput) {
 	const latexDir = env.LATEXDIR // end with slash
 	const publicDir = env.PUBLICDIR // end with slash
 
@@ -15,7 +16,7 @@ function genPDF(templateParams) {
 	proc.execSync(`cp -r ${latexDir} ${targetFolder}`)
 
 	// replace files with their templated equivalent
-	const r = (p) => replaceTemplate(templateParams, targetFolder + "/" + p)
+	const r = (p: string) => replaceTemplate(templateParams, targetFolder + "/" + p)
 	r("sections/titlepage.tex")
 	r("letter/uvic-engr-letter-of-transmittal.tex")
 	r("sections/executive-summary.tex")
@@ -30,12 +31,12 @@ function genPDF(templateParams) {
 	return "/public/" + id + "/uvic-engr-work-term-report.pdf"
 }
 
-function build(path) {
+function build(path: string) {
 	proc.execSync(`pdflatex -output-directory ${path}/letter ${path}/letter/uvic-engr-letter-of-transmittal.tex`)
 	proc.execSync(`pdflatex -output-directory ${path} ${path}/uvic-engr-work-term-report.tex`)
 }
 
-function replaceTemplate(params, path) {
+function replaceTemplate(params: TemplateInput, path: string) {
 	const bytes = fs.readFileSync(path)
 	const contents = bytes.toString()
 	const newContents = Handlebars.compile(contents)(params).toString() // god i miss haskell
