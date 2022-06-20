@@ -17,13 +17,18 @@ const Form = (Props: any) => {
   const [workTermSeason, setWorkTermSeason] = useState("");
   const [workTermYear, setWorkTermYear] = useState("");
   const [workTermNumber, setWorkTermNumber] = useState("");
-  const [projectTopic, setProjectTopic] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [markerName, setMarkerName] = useState("");
   const [markerAddress, setMarkerAddress] = useState("");
   const [markerCity, setMarkerCity] = useState("");
   const [markerProvince, setMarkerProvince] = useState("");
   const [markerPostalCode, setMarkerPostalCode] = useState("");
+
+  const [projectTopic, setProjectTopic] = useState("");
+  const [projectProblem, setProjectProblem] = useState("");
+  const [projectSolution1, setProjectSolution1] = useState("");
+  const [projectSolution2, setProjectSolution2] = useState("");
+  const [projectSolution3, setProjectSolution3] = useState("");
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -60,6 +65,9 @@ const Form = (Props: any) => {
         province: markerProvince,
         zip: markerPostalCode,
       },
+      project: projectTopic,
+      problem: projectProblem,
+      solutions: [projectSolution1, projectSolution2, projectSolution3],
     };
 
     axios
@@ -379,26 +387,6 @@ const Form = (Props: any) => {
             required
           />
         </label>
-        <label className="block" htmlFor="project-topic">
-          <span className="text-gray-700">Project Topic / Area of Work</span>
-          <input
-            name="project-topic"
-            type="text"
-            className="
-                    mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-gray-300
-                    shadow-sm
-                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
-                  "
-            placeholder=""
-            value={projectTopic}
-            onChange={(event) => setProjectTopic(event.target.value)}
-            required
-          />
-        </label>
         <label className="block" htmlFor="due-date">
           <span className="text-gray-700">Due Date</span>
           <input
@@ -516,6 +504,106 @@ const Form = (Props: any) => {
             placeholder=""
             value={markerPostalCode}
             onChange={(event) => setMarkerPostalCode(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-topic">
+          <span className="text-gray-700">Project Topic</span>
+          <input
+            name="project-topic"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectTopic}
+            onChange={(event) => setProjectTopic(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-problem">
+          <span className="text-gray-700">Project Problem</span>
+          <input
+            name="project-problem"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectProblem}
+            onChange={(event) => setProjectProblem(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-solution-01">
+          <span className="text-gray-700">Project Solution 01</span>
+          <input
+            name="project-solution-01"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectSolution1}
+            onChange={(event) => setProjectSolution1(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-solution-02">
+          <span className="text-gray-700">Project Solution 02</span>
+          <input
+            name="project-solution-02"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectSolution2}
+            onChange={(event) => setProjectSolution2(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-solution03">
+          <span className="text-gray-700">Project Solution 03</span>
+          <input
+            name="project-solution03"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectSolution3}
+            onChange={(event) => setProjectSolution3(event.target.value)}
             required
           />
         </label>
