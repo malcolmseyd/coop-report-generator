@@ -25,10 +25,10 @@ const Form = (Props: any) => {
   const [markerProvince, setMarkerProvince] = useState("");
   const [markerPostalCode, setMarkerPostalCode] = useState("");
 
-  const [pdfURL, setPdfURL] = useState("");
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    Props.updateReportGenerated(true);
+    Props.updateLoading(true);
 
     let body = {
       title: titleReport,
@@ -40,7 +40,7 @@ const Form = (Props: any) => {
       company: {
         name: companyName,
         position: position,
-        location: "companyLocation",
+        location: companyLocation,
       },
       student: {
         name: name,
@@ -65,14 +65,13 @@ const Form = (Props: any) => {
     axios
       .post("http://localhost:8080/gen", body)
       .then(function (response: any) {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.data.url);
-
-        setPdfURL(response.data.url);
         Props.updatePDF(response.data.url);
       })
+      .then(() => {
+        Props.updateLoading(false);
+      })
       .catch(function (error: any) {
+        Props.updateReportGenerated(false);
         console.log(error);
       });
   };
