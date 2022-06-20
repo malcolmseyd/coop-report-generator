@@ -2,7 +2,6 @@ import fs from "fs"
 import proc from "child_process"
 import { env } from "process"
 import Handlebars from "handlebars"
-import { format } from "path"
 
 function genPDF(templateParams) {
 	const latexDir = env.LATEXDIR // end with slash
@@ -39,15 +38,8 @@ function build(path) {
 function replaceTemplate(params, path) {
 	const bytes = fs.readFileSync(path)
 	const contents = bytes.toString()
-	try {
-		Handlebars.compile(contents)(params).toString()
-		fs.writeFileSync(path, contents)
-	} catch (e) {
-		console.log("error: ", e)
-	}
-	const newContents = Handlebars.compile(contents)(params).toString()
+	const newContents = Handlebars.compile(contents)(params).toString() // god i miss haskell
 	fs.writeFileSync(path, newContents)
-
 }
 
 export { genPDF }

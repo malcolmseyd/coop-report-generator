@@ -7,8 +7,13 @@ const fastify = Fastify({
 import fs from "fs/promises";
 import cors from "@fastify/cors";
 
+import files from "@fastify/static"
+import { env } from "process"
+
 import { genPDF } from "./pdfgen.js";
-import defaultParams from "./schema.js";
+import { template } from "./schema.js";
+import { generate_contents } from "./ai.js"
+
 fastify.get("/", async (request, reply) => {
   return { hello: "world" };
 });
@@ -28,17 +33,24 @@ fastify.get("/hosts", async (request, reply) => {
   return a.toString();
 });
 fastify.post("/gen", async (request, reply) => {
-  const templateParams = defaultParams;
+  const templateParams = {
+    ai: await generate_contents(request.body),
+    ...request.body
+  }
   const url = genPDF(templateParams);
   return { url };
 });
+fastify.post("/ai", async (request, reply) => {
+  return generate_contents(request.body)
+})
+fastify.post("/gen-test", async (request, reply) => {
+  const url = genPDF(template);
+  return { url };
+})
 
-import files from "@fastify/static"
-import { env } from "process"
-import path from 'path'
 fastify.register(files, {
   root: env.PUBLICDIR,
-  prefix: '/public/', 
+  prefix: '/public/',
 })
 
 fastify.register(cors, { origin: true })
