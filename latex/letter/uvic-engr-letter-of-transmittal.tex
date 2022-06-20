@@ -29,25 +29,26 @@
 \begin{document}
 
 % student info
-{{student.name}} \\
-{{student.address}} \\
-{{student.city}}, {{student.province}} \\
-{{student.zip}} \\
+{{&student.name}} \\
+{{&student.address}} \\
+{{&student.city}}, {{&student.province}} \\
+{{&student.zip}} \\
 \newline
-{{dueDate}} \\
+{{&dueDate}} \\
 \newline
-{{marker.name}} \\
-{{marker.address}} \\
-{{marker.city}}, {{marker.province}} \\
-{{marker.zip}} \\
+{{&marker.name}} \\
+{{&marker.address}} \\
+{{&marker.city}}, {{&marker.province}} \\
+{{&marker.zip}} \\
 \newline
-Dear {{marker.name}}, \\
-\newline
-{{ai.letter}} \\
-\newline
-Sincerely, \\
-\newline
-{{student.name}}
+
+% Dear {{&marker.name}}, \\
+% \newline
+{{&ai.letter}} \\ % GPT 3 does the above and below comments
+% \newline
+% Sincerely, \\
+% \newline
+% {{&student.name}}
 
 % \begin{letter}{
 %     % Addressee
