@@ -3,17 +3,21 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const Header = () => {
   return (
-    <header className="flex justify-between gap-2 py-4 px-6 align-middle">
+    <header className="flex items-center justify-between gap-2 py-4 px-6 align-middle">
       <div>
         <h1 className="text-lg">
-          <a className="p-1" href="/">
-            Amazing App Name
-          </a>
+          <a href="/">Co-Op Report Generator</a>
         </h1>
       </div>
       <div>
-        <a href="https://github.com/malcolmseyd/uvec-summer-2022">
-          <FontAwesomeIcon className="p-1 text-2xl" icon={faGithub} />
+        <a
+          href="https://github.com/malcolmseyd/coop-report-generator"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit the source code on GitHub."
+          className="p-1 text-2xl"
+        >
+          <FontAwesomeIcon icon={faGithub} />
         </a>
       </div>
     </header>

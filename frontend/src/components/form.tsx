@@ -1,6 +1,7 @@
 import { useState } from "react";
+const axios = require("axios");
 
-const Form = () => {
+const Form = (Props: any) => {
   const [titleReport, setTitleReport] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [companyLocation, setCompanyLocation] = useState("");
@@ -16,7 +17,6 @@ const Form = () => {
   const [workTermSeason, setWorkTermSeason] = useState("");
   const [workTermYear, setWorkTermYear] = useState("");
   const [workTermNumber, setWorkTermNumber] = useState("");
-  const [projectTopic, setProjectTopic] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [markerName, setMarkerName] = useState("");
   const [markerAddress, setMarkerAddress] = useState("");
@@ -24,10 +24,16 @@ const Form = () => {
   const [markerProvince, setMarkerProvince] = useState("");
   const [markerPostalCode, setMarkerPostalCode] = useState("");
 
-  // const [pdfURL, setPdfURL] = useState("");
+  const [projectTopic, setProjectTopic] = useState("");
+  const [projectProblem, setProjectProblem] = useState("");
+  const [projectSolution1, setProjectSolution1] = useState("");
+  const [projectSolution2, setProjectSolution2] = useState("");
+  const [projectSolution3, setProjectSolution3] = useState("");
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    Props.updateReportGenerated(true);
+    Props.updateLoading(true);
 
     let body = {
       title: titleReport,
@@ -39,7 +45,7 @@ const Form = () => {
       company: {
         name: companyName,
         position: position,
-        location: "companyLocation",
+        location: companyLocation,
       },
       student: {
         name: name,
@@ -59,55 +65,23 @@ const Form = () => {
         province: markerProvince,
         zip: markerPostalCode,
       },
+      project: projectTopic,
+      problem: projectProblem,
+      solutions: [projectSolution1, projectSolution2, projectSolution3],
     };
 
-    fetch("http://localhost:8080/gen", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((response) => {
-        response.json();
+    axios
+      .post("http://localhost:8080/gen", body)
+      .then(function (response: any) {
+        Props.updatePDF(response.data.url);
       })
-      .then((result: any) => {
-        //setPdfURL(result.url);
-
-        if (result) {
-          let pdfDownload = document.createElement("a");
-          pdfDownload.href = result.url;
-          pdfDownload.download = "report.pdf";
-          pdfDownload.click();
-        }
-
-        console.log(result);
+      .then(() => {
+        Props.updateLoading(false);
+      })
+      .catch(function (error: any) {
+        Props.updateReportGenerated(false);
+        console.log(error);
       });
-
-    console.table({
-      titleReport,
-      companyName,
-      companyLocation,
-      position,
-      name,
-      vNumber,
-      engineeringDiscipline,
-      email,
-      address,
-      city,
-      province,
-      postalCode,
-      workTermSeason,
-      workTermYear,
-      workTermNumber,
-      projectTopic,
-      dueDate,
-      markerName,
-      markerAddress,
-      markerCity,
-      markerProvince,
-      markerPostalCode,
-    });
   };
 
   return (
@@ -413,26 +387,6 @@ const Form = () => {
             required
           />
         </label>
-        <label className="block" htmlFor="project-topic">
-          <span className="text-gray-700">Project Topic / Area of Work</span>
-          <input
-            name="project-topic"
-            type="text"
-            className="
-                    mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-gray-300
-                    shadow-sm
-                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
-                  "
-            placeholder=""
-            value={projectTopic}
-            onChange={(event) => setProjectTopic(event.target.value)}
-            required
-          />
-        </label>
         <label className="block" htmlFor="due-date">
           <span className="text-gray-700">Due Date</span>
           <input
@@ -550,6 +504,106 @@ const Form = () => {
             placeholder=""
             value={markerPostalCode}
             onChange={(event) => setMarkerPostalCode(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-topic">
+          <span className="text-gray-700">Project Topic</span>
+          <input
+            name="project-topic"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectTopic}
+            onChange={(event) => setProjectTopic(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-problem">
+          <span className="text-gray-700">Project Problem</span>
+          <input
+            name="project-problem"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectProblem}
+            onChange={(event) => setProjectProblem(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-solution-01">
+          <span className="text-gray-700">Project Solution 01</span>
+          <input
+            name="project-solution-01"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectSolution1}
+            onChange={(event) => setProjectSolution1(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-solution-02">
+          <span className="text-gray-700">Project Solution 02</span>
+          <input
+            name="project-solution-02"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectSolution2}
+            onChange={(event) => setProjectSolution2(event.target.value)}
+            required
+          />
+        </label>
+        <label className="block" htmlFor="project-solution03">
+          <span className="text-gray-700">Project Solution 03</span>
+          <input
+            name="project-solution03"
+            type="text"
+            className="
+                    mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-gray-300
+                    shadow-sm
+                    focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                  "
+            placeholder=""
+            value={projectSolution3}
+            onChange={(event) => setProjectSolution3(event.target.value)}
             required
           />
         </label>
