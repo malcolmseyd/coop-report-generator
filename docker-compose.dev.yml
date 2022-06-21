@@ -13,3 +13,5 @@ services:
     volumes:
       - ./backend:/app
       - ./latex:/latex
+    env_file:
+      - .env
