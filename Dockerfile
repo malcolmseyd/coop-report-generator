@@ -28,5 +28,6 @@ RUN npm install
 
 ENV PUBLICDIR=/app/public
 ENV LATEXDIR=/latex
+ENV OPENAI_API_KEY=${OPENAI_API_KEY}
 
 CMD ["npm", "start"]
